@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>判定結果</title>
+</head>
+<body>
+    <h2>判定結果</h2>
+    <p>白の割合: {{ result.white_ratio }}</p>
+    <p>黒の割合: {{ result.black_ratio }}</p>
+    <img src="{{ url_for('static', filename='../uploads/' + filename) }}" alt="Uploaded Image" width="300">
+    <br><br>
+    <a href="{{ url_for('index') }}">戻る</a>
+</body>
+</html>
