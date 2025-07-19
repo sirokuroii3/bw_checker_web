@@ -7,10 +7,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-# uploads フォルダがなければ作成（Render環境でのエラー防止）
-if not os.path.exists(app.config['UPLOAD_FOLDER']):
-    os.makedirs(app.config['UPLOAD_FOLDER'])
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,6 +18,10 @@ def analyze():
     file = request.files['image']
     if file.filename == '':
         return "ファイルが選択されていません", 400
+
+    # uploadsフォルダが存在しなければ作成する
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
 
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
